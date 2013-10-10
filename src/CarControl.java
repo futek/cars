@@ -14,7 +14,7 @@ class Gate {
     boolean isopen = false;
 
     public void pass() throws InterruptedException {
-        g.P(); 
+        g.P();
         g.V();
     }
 
@@ -26,7 +26,7 @@ class Gate {
 
     public void close() {
         try { e.P(); } catch (InterruptedException e) {}
-        if (isopen) { 
+        if (isopen) {
             try { g.P(); } catch (InterruptedException e) {}
             isopen = false;
         }
@@ -47,17 +47,19 @@ class Car extends Thread {
     Pos barpos;                      // Barrierpositon (provided by GUI)
     Color col;                       // Car  color
     Gate mygate;                     // Gate at startposition
+    Alley alley;
 
 
     int speed;                       // Current car speed
-    Pos curpos;                      // Current position 
+    Pos curpos;                      // Current position
     Pos newpos;                      // New position to go to
 
-    public Car(int no, CarDisplayI cd, Gate g) {
+    public Car(int no, CarDisplayI cd, Gate g, Alley a) {
 
         this.no = no;
         this.cd = cd;
         mygate = g;
+        alley = a;
         startpos = cd.getStartPos(no);
         barpos = cd.getBarrierPos(no);  // For later use
 
@@ -65,13 +67,13 @@ class Car extends Thread {
 
         // do not change the special settings for car no. 0
         if (no==0) {
-            basespeed = 0;  
-            variation = 0; 
-            setPriority(Thread.MAX_PRIORITY); 
+            basespeed = 0;
+            variation = 0;
+            setPriority(Thread.MAX_PRIORITY);
         }
     }
 
-    public synchronized void setSpeed(int speed) { 
+    public synchronized void setSpeed(int speed) {
         if (no != 0 && speed >= 0) {
             basespeed = speed;
         }
@@ -79,7 +81,7 @@ class Car extends Thread {
             cd.println("Illegal speed settings");
     }
 
-    public synchronized void setVariation(int var) { 
+    public synchronized void setVariation(int var) {
         if (no != 0 && 0 <= var && var <= 100) {
             variation = var;
         }
@@ -87,19 +89,19 @@ class Car extends Thread {
             cd.println("Illegal variation settings");
     }
 
-    synchronized int chooseSpeed() { 
+    synchronized int chooseSpeed() {
         double factor = (1.0D+(Math.random()-0.5D)*2*variation/100);
         return (int)Math.round(factor*basespeed);
     }
 
     private int speed() {
         // Slow down if requested
-        final int slowfactor = 3;  
+        final int slowfactor = 3;
         return speed * (cd.isSlow(curpos)? slowfactor : 1);
     }
 
-    Color chooseColor() { 
-        return Color.blue; // You can get any color, as longs as it's blue 
+    Color chooseColor() {
+        return Color.blue; // You can get any color, as longs as it's blue
     }
 
     Pos nextPos(Pos pos) {
@@ -111,24 +113,39 @@ class Car extends Thread {
         return pos.equals(startpos);
     }
 
-   public void run() {
-        try {
+    boolean inAlley(Pos pos) {
+    	return pos.col == 0 ||
+    		   pos.row == 1 && pos.col == 1;
+    }
+
+    public void run() {
+    	try {
 
             speed = chooseSpeed();
             curpos = startpos;
             cd.mark(curpos,col,no);
 
-            while (true) { 
+            while (true) {
                 sleep(speed());
 
-                if (atGate(curpos)) { 
-                    mygate.pass(); 
+                if (atGate(curpos)) {
+                    mygate.pass();
                     speed = chooseSpeed();
                 }
-                	
+
                 newpos = nextPos(curpos);
-                
-                //  Move to new position 
+
+                if (inAlley(curpos)) {
+                	if (!inAlley(newpos)) {
+                		alley.leave(no);
+                	}
+                } else {
+                	if (inAlley(newpos)) {
+                		alley.enter(no);
+                	}
+                }
+
+                //  Move to new position
                 cd.clear(curpos);
                 cd.mark(curpos,newpos,col,no);
                 sleep(speed());
@@ -152,23 +169,25 @@ public class CarControl implements CarControlI{
     CarDisplayI cd;           // Reference to GUI
     Car[]  car;               // Cars
     Gate[] gate;              // Gates
+    Alley alley;
 
     public CarControl(CarDisplayI cd) {
         this.cd = cd;
         car  = new  Car[9];
         gate = new Gate[9];
+        alley = new Alley();
 
         for (int no = 0; no < 9; no++) {
             gate[no] = new Gate();
-            car[no] = new Car(no,cd,gate[no]);
+            car[no] = new Car(no,cd,gate[no],alley);
             car[no].start();
-        } 
+        }
     }
 
     public boolean hasBridge() {
         return false;				// Change for bridge version
     }
-    
+
     public void startCar(int no) {
         gate[no].open();
     }
@@ -177,42 +196,42 @@ public class CarControl implements CarControlI{
         gate[no].close();
     }
 
-    public void barrierOn() { 
+    public void barrierOn() {
         cd.println("Barrier On not implemented in this version");
     }
 
-    public void barrierOff() { 
+    public void barrierOff() {
         cd.println("Barrier Off not implemented in this version");
     }
 
-    public void barrierShutDown() { 
+    public void barrierShutDown() {
         cd.println("Barrier shut down not implemented in this version");
         // This sleep is for illustrating how blocking affects the GUI
         // Remove when shutdown is implemented.
         try { Thread.sleep(5000); } catch (InterruptedException e) { }
-        // Recommendation: 
+        // Recommendation:
         //   If not implemented call barrier.off() instead to make graphics consistent
     }
 
-    public void setLimit(int k) { 
+    public void setLimit(int k) {
         cd.println("Setting of bridge limit not implemented in this version");
     }
 
-    public void removeCar(int no) { 
+    public void removeCar(int no) {
         cd.println("Remove Car not implemented in this version");
     }
 
-    public void restoreCar(int no) { 
+    public void restoreCar(int no) {
         cd.println("Restore Car not implemented in this version");
     }
 
     /* Speed settings for testing purposes */
 
-    public void setSpeed(int no, int speed) { 
+    public void setSpeed(int no, int speed) {
         car[no].setSpeed(speed);
     }
 
-    public void setVariation(int no, int var) { 
+    public void setVariation(int no, int var) {
         car[no].setVariation(var);
     }
 
