@@ -3,7 +3,7 @@ public class Alley {
 	private Semaphore freeBot = new Semaphore(1);
 	private int n = 0;
 
-	// TODO: Allow multiple cars in same direction
+	// TODO: Solve deadlock where both top and bottom enter at the same time!
 
 	/*
 	 *              <
@@ -20,38 +20,32 @@ public class Alley {
 	}
 
 	public void enter(int no) {
-		if (goesDown(no)) {
-			try { freeTop.P(); } catch (InterruptedException e) {};
+		Semaphore our = (goesDown(no) ? freeTop : freeBot);
+		Semaphore their = (!goesDown(no) ? freeTop : freeBot);
 
-			if (n == 0) {
-				try { freeBot.P(); } catch (InterruptedException e) {};
-			}
+		try { our.P(); } catch (InterruptedException e) {};
 
-			n++;
-
-			freeTop.V();
-		} else {
-			try { freeBot.P(); } catch (InterruptedException e) {};
-
-			if (n == 0) {
-				try { freeTop.P(); } catch (InterruptedException e) {};
-			}
-
-			n++;
-
-			freeBot.V();
+		if (n == 0) {
+			try { their.P(); } catch (InterruptedException e) {};
 		}
+
+		n++;
+
+		our.V();
 	}
 
 	public void leave(int no) {
+		Semaphore our = (goesDown(no) ? freeTop : freeBot);
+		Semaphore their = (!goesDown(no) ? freeTop : freeBot);
+
+		try { our.P(); } catch (InterruptedException e) {};
+
 		n--;
 
 		if (n == 0) {
-			if (goesDown(no)) {
-				freeBot.V();
-			} else {
-				freeTop.V();
-			}
+			their.V();
 		}
+
+		our.V();
 	}
 }
