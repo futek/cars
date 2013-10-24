@@ -6,6 +6,8 @@
 
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 
 class Gate {
 
@@ -48,18 +50,20 @@ class Car extends Thread {
     Color col;                       // Car  color
     Gate mygate;                     // Gate at startposition
     Alley alley;
+    Map<Pos, Semaphore> empty;
 
 
     int speed;                       // Current car speed
     Pos curpos;                      // Current position
     Pos newpos;                      // New position to go to
 
-    public Car(int no, CarDisplayI cd, Gate g, Alley a) {
+    public Car(int no, CarDisplayI cd, Gate g, Alley a, Map<Pos, Semaphore> e) {
 
         this.no = no;
         this.cd = cd;
         mygate = g;
         alley = a;
+        empty = e;
         startpos = cd.getStartPos(no);
         barpos = cd.getBarrierPos(no);  // For later use
 
@@ -135,6 +139,9 @@ class Car extends Thread {
 
                 newpos = nextPos(curpos);
 
+                Semaphore curEmpty = empty.get(curpos);
+                Semaphore newEmpty = empty.get(newpos);
+
                 if (inAlley(curpos)) {
                 	if (!inAlley(newpos)) {
                 		alley.leave(no);
@@ -145,6 +152,8 @@ class Car extends Thread {
                 	}
                 }
 
+                try { newEmpty.P(); } catch (InterruptedException e) {};
+
                 //  Move to new position
                 cd.clear(curpos);
                 cd.mark(curpos,newpos,col,no);
@@ -153,6 +162,8 @@ class Car extends Thread {
                 cd.mark(newpos,col,no);
 
                 curpos = newpos;
+
+                curEmpty.V();
             }
 
         } catch (Exception e) {
@@ -170,16 +181,24 @@ public class CarControl implements CarControlI{
     Car[]  car;               // Cars
     Gate[] gate;              // Gates
     Alley alley;
+    Map<Pos, Semaphore> empty;
 
     public CarControl(CarDisplayI cd) {
         this.cd = cd;
         car  = new  Car[9];
         gate = new Gate[9];
         alley = new Alley();
+        empty = new HashMap<Pos, Semaphore>();
+
+        for (int row = 0; row < 11; row++) {
+        	for (int col = 0; col < 12; col++) {
+        		empty.put(new Pos(row, col), new Semaphore(1));
+        	}
+        }
 
         for (int no = 0; no < 9; no++) {
             gate[no] = new Gate();
-            car[no] = new Car(no,cd,gate[no],alley);
+            car[no] = new Car(no, cd, gate[no], alley, empty);
             car[no].start();
         }
     }
