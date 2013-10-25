@@ -1,51 +1,41 @@
 public class Alley {
-	private Semaphore freeTop = new Semaphore(1);
-	private Semaphore freeBot = new Semaphore(1);
-	private int n = 0;
+	private Semaphore mutex = new Semaphore(1);
+	private Semaphore top = new Semaphore(0);
+	private Semaphore bot = new Semaphore(0);
 
-	// TODO: Solve deadlock where both top and bottom enter at the same time!
+	private int n = 0; // number of cars in alley
+	private int w = 0; // number of cars waiting
+	private boolean down = true; // last observed travel direction
 
-	/*
-	 *              <
-	 *           | |
-	 *           | |
-	 *           |V|
-	 *           | |
-	 *           |V|
-	 *              <
-	 */
-
-	public boolean goesDown(int no) {
+	private boolean goesDown(int no) {
 		return no < 5;
 	}
 
 	public void enter(int no) {
-		Semaphore our = (goesDown(no) ? freeTop : freeBot);
-		Semaphore their = (!goesDown(no) ? freeTop : freeBot);
+		boolean goesDown = goesDown(no);
 
-		try { our.P(); } catch (InterruptedException e) {};
-
-		if (n == 0) {
-			try { their.P(); } catch (InterruptedException e) {};
+		while (true) {
+			try { mutex.P(); } catch (InterruptedException e) {}
+			if (n == 0 || goesDown == down) break;
+			w++;
+			mutex.V();
+			try { (goesDown ? top : bot).P(); } catch (InterruptedException e) {}
 		}
-
 		n++;
-
-		our.V();
+		if (n == 1) down = goesDown;
+		mutex.V();
 	}
 
 	public void leave(int no) {
-		Semaphore our = (goesDown(no) ? freeTop : freeBot);
-		Semaphore their = (!goesDown(no) ? freeTop : freeBot);
-
-		try { our.P(); } catch (InterruptedException e) {};
-
+		try { mutex.P(); } catch (InterruptedException e) {}
 		n--;
-
 		if (n == 0) {
-			their.V();
+			Semaphore s = goesDown(no) ? bot : top;
+			while (w > 0) {
+				w--;
+				s.V();
+			}
 		}
-
-		our.V();
+		mutex.V();
 	}
 }
