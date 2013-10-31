@@ -49,19 +49,21 @@ class Car extends Thread {
     Gate mygate;                     // Gate at startposition
     Alley alley;
     Collision collision;
+    Barrier barrier;
 
 
     int speed;                       // Current car speed
     Pos curpos;                      // Current position
     Pos newpos;                      // New position to go to
 
-    public Car(int no, CarDisplayI cd, Gate g, Alley a, Collision c) {
+    public Car(int no, CarDisplayI cd, Gate g, Alley a, Collision c, Barrier b) {
 
         this.no = no;
         this.cd = cd;
         mygate = g;
         alley = a;
         collision = c;
+        barrier = b;
         startpos = cd.getStartPos(no);
         barpos = cd.getBarrierPos(no);  // For later use
 
@@ -120,6 +122,12 @@ class Car extends Thread {
     		   pos.row == 1 && pos.col == 1;
     }
 
+    boolean infrontOfBarrier(Pos curpos, Pos newpos) {
+        if (curpos.col < 3) return false;
+        return curpos.row == 5 && newpos.row == 6 ||
+               curpos.row == 6 && newpos.row == 5;
+    }
+
     public void run() {
     	try {
 
@@ -149,6 +157,10 @@ class Car extends Thread {
 
                 collision.enter(newpos);
 
+                if (infrontOfBarrier(curpos, newpos)) {
+                    barrier.sync();
+                }
+
                 //  Move to new position
                 cd.clear(curpos);
                 cd.mark(curpos,newpos,col,no);
@@ -177,17 +189,21 @@ public class CarControl implements CarControlI{
     Gate[] gate;              // Gates
     Alley alley;
     Collision collision;
+    Barrier barrier;
 
     public CarControl(CarDisplayI cd) {
+        int numberOfCars = 9;
+
         this.cd = cd;
-        car  = new  Car[9];
-        gate = new Gate[9];
+        car  = new  Car[numberOfCars];
+        gate = new Gate[numberOfCars];
         alley = new Alley();
         collision = new Collision(11, 12);
+        barrier = new Barrier(numberOfCars);
 
-        for (int no = 0; no < 9; no++) {
+        for (int no = 0; no < numberOfCars; no++) {
             gate[no] = new Gate();
-            car[no] = new Car(no, cd, gate[no], alley, collision);
+            car[no] = new Car(no, cd, gate[no], alley, collision, barrier);
             car[no].start();
         }
     }
@@ -205,11 +221,11 @@ public class CarControl implements CarControlI{
     }
 
     public void barrierOn() {
-        cd.println("Barrier On not implemented in this version");
+        barrier.on();
     }
 
     public void barrierOff() {
-        cd.println("Barrier Off not implemented in this version");
+        barrier.off();
     }
 
     public void barrierShutDown() {
