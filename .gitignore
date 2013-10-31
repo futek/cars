@@ -2,3 +2,7 @@ bin/
 .classpath
 .project
 .settings/
+
+spin/pan*
+spin/*.trail
+spin/*.dot
