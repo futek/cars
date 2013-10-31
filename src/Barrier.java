@@ -21,10 +21,7 @@ public class Barrier {
                 break;
             w++;
             mutex.V();
-            try {
-                wait.P();
-            } catch (InterruptedException e) {
-            }
+            try { wait.P(); } catch (InterruptedException e) {}
             next.V();
             return;
         }
