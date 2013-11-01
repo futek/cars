@@ -14,11 +14,11 @@ public class Barrier {
     public void sync() {
         if (!on) return;
 
-        while (true) {
-            try { mutex.P(); } catch (InterruptedException e) {}
-            n++;
-            if (n == numberOfCars)
-                break;
+        try { mutex.P(); } catch (InterruptedException e) {}
+
+        n++;
+
+        if (n < numberOfCars) {
             w++;
             mutex.V();
             try { wait.P(); } catch (InterruptedException e) {}
