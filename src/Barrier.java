@@ -1,52 +1,46 @@
 public class Barrier {
     private boolean on = false;
     private int numberOfCars;
-    private Semaphore mutex = new Semaphore(1);
-    private Semaphore wait = new Semaphore(0);
-    private Semaphore next = new Semaphore(0);
     private int n = 0;
-    private int w = 0;
+    private boolean ticket = false;
 
     public Barrier(int numberOfCars) {
         this.numberOfCars = numberOfCars;
     }
 
-    public void sync() {
-        if (!on) return;
+    public synchronized void sync() {
+        boolean localTicket = ticket;
 
-        try { mutex.P(); } catch (InterruptedException e) {}
+        if (!on) return;
 
         n++;
 
-        if (n < numberOfCars) {
-            w++;
-            mutex.V();
-            try { wait.P(); } catch (InterruptedException e) {}
-            next.V();
-            return;
+        if (n == numberOfCars) {
+            n = 0;
+            ticket = !ticket;
+            notifyAll();
+        } else {
+            while (localTicket == ticket) {
+                try { wait(); } catch (InterruptedException e) {}
+            }
         }
-
-        for (n = 0; w > 0; w--) {
-            wait.V();
-            try { next.P(); } catch (InterruptedException e) {}
-        }
-
-        mutex.V();
     }
 
-    public void on() {
+    public synchronized void on() {
         on = true;
     }
 
-    public void off() {
+    public synchronized void off() {
         on = false;
 
-        try { mutex.P(); } catch (InterruptedException e) {}
+        notifyAll();
+    }
 
-        for (n = 0; w > 0; w--) {
-            wait.V();
+    public synchronized void shutdown() {
+        while (n != 0) {
+            try { wait(); } catch (InterruptedException e) {}
         }
 
-        mutex.V();
+        off();
     }
 }
