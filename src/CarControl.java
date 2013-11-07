@@ -129,11 +129,14 @@ class Car extends Thread {
     }
 
     public void run() {
-    	try {
+        boolean inbetweenFields = false;
 
+    	try {
             speed = chooseSpeed();
             curpos = startpos;
             cd.mark(curpos,col,no);
+
+            collision.enter(curpos);
 
             while (true) {
                 sleep(speed());
@@ -156,6 +159,7 @@ class Car extends Thread {
                 }
 
                 collision.enter(newpos);
+                inbetweenFields = true;
 
                 if (infrontOfBarrier(curpos, newpos)) {
                     barrier.sync();
@@ -169,10 +173,20 @@ class Car extends Thread {
                 cd.mark(newpos,col,no);
 
                 collision.leave(curpos);
-
                 curpos = newpos;
+                inbetweenFields = false;
+            }
+        } catch (InterruptedException e) {
+            if (inbetweenFields) {
+                collision.leave(curpos);
+                collision.leave(newpos);
+                cd.clear(curpos, newpos);
+            } else {
+                collision.leave(curpos);
+                cd.clear(curpos);
             }
 
+            cd.println("Car no. " + no + " removed");
         } catch (Exception e) {
             cd.println("Exception in Car no. " + no);
             System.err.println("Exception in Car no. " + no + ":" + e);
@@ -242,11 +256,18 @@ public class CarControl implements CarControlI{
     }
 
     public void removeCar(int no) {
-        cd.println("Remove Car not implemented in this version");
+        if (car[no] != null) {
+            car[no].interrupt();
+            car[no] = null;
+        }
     }
 
     public void restoreCar(int no) {
-        cd.println("Restore Car not implemented in this version");
+        if (car[no] == null) {
+            car[no] = new Car(no, cd, gate[no], alley, collision, barrier);
+            car[no].start();
+            cd.println("Car no. " + no + " restored");
+        }
     }
 
     /* Speed settings for testing purposes */
