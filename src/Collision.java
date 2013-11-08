@@ -12,8 +12,8 @@ public class Collision {
         }
 	}
 
-	public void enter(Pos pos) {
-		try { empty.get(pos).P(); } catch (InterruptedException e) {};
+	public void enter(Pos pos) throws InterruptedException {
+		empty.get(pos).P();
 	}
 
 	public void leave(Pos pos) {

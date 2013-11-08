@@ -51,6 +51,8 @@ class Car extends Thread {
     Collision collision;
     Barrier barrier;
 
+    boolean removed = false;
+
 
     int speed;                       // Current car speed
     Pos curpos;                      // Current position
@@ -129,11 +131,14 @@ class Car extends Thread {
     }
 
     public void run() {
-    	try {
+        boolean inbetweenFields = false;
 
+    	try {
             speed = chooseSpeed();
             curpos = startpos;
             cd.mark(curpos,col,no);
+
+            collision.enter(curpos);
 
             while (true) {
                 sleep(speed());
@@ -156,6 +161,7 @@ class Car extends Thread {
                 }
 
                 collision.enter(newpos);
+                inbetweenFields = true;
 
                 if (infrontOfBarrier(curpos, newpos)) {
                     barrier.sync();
@@ -169,10 +175,32 @@ class Car extends Thread {
                 cd.mark(newpos,col,no);
 
                 collision.leave(curpos);
-
                 curpos = newpos;
+                inbetweenFields = false;
+            }
+        } catch (InterruptedException e) {
+            removed = true;
+
+            if (inbetweenFields) {
+                collision.leave(curpos);
+                collision.leave(newpos);
+
+                if (inAlley(newpos)) {
+                    try { alley.leave(no); } catch (InterruptedException ie) {};
+                }
+
+                cd.clear(curpos, newpos);
+            } else {
+                collision.leave(curpos);
+
+                if (inAlley(curpos)) {
+                    try { alley.leave(no); } catch (InterruptedException ie) {};
+                }
+
+                cd.clear(curpos);
             }
 
+            cd.println("Car no. " + no + " removed");
         } catch (Exception e) {
             cd.println("Exception in Car no. " + no);
             System.err.println("Exception in Car no. " + no + ":" + e);
@@ -225,7 +253,7 @@ public class CarControl implements CarControlI{
     }
 
     public void barrierOff() {
-        barrier.off();
+        try { barrier.off(); } catch (InterruptedException e) {}
     }
 
     public void barrierShutDown() {
@@ -237,11 +265,17 @@ public class CarControl implements CarControlI{
     }
 
     public void removeCar(int no) {
-        cd.println("Remove Car not implemented in this version");
+        if (car[no].isAlive() && !car[no].removed) {
+            car[no].interrupt();
+        }
     }
 
     public void restoreCar(int no) {
-        cd.println("Restore Car not implemented in this version");
+        if (!car[no].isAlive()) {
+            car[no] = new Car(no, cd, gate[no], alley, collision, barrier);
+            car[no].start();
+            cd.println("Car no. " + no + " restored");
+        }
     }
 
     /* Speed settings for testing purposes */
