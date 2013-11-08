@@ -51,6 +51,8 @@ class Car extends Thread {
     Collision collision;
     Barrier barrier;
 
+    boolean removed = false;
+
 
     int speed;                       // Current car speed
     Pos curpos;                      // Current position
@@ -177,12 +179,24 @@ class Car extends Thread {
                 inbetweenFields = false;
             }
         } catch (InterruptedException e) {
+            removed = true;
+
             if (inbetweenFields) {
                 collision.leave(curpos);
                 collision.leave(newpos);
+
+                if (inAlley(newpos)) {
+                    try { alley.leave(no); } catch (InterruptedException ie) {};
+                }
+
                 cd.clear(curpos, newpos);
             } else {
                 collision.leave(curpos);
+
+                if (inAlley(curpos)) {
+                    try { alley.leave(no); } catch (InterruptedException ie) {};
+                }
+
                 cd.clear(curpos);
             }
 
@@ -256,7 +270,7 @@ public class CarControl implements CarControlI{
     }
 
     public void removeCar(int no) {
-        if (car[no].isAlive()) {
+        if (car[no].isAlive() && !car[no].removed) {
             car[no].interrupt();
         }
     }
