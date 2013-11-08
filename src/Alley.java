@@ -11,11 +11,11 @@ public class Alley {
 		return no < 5;
 	}
 
-	public void enter(int no) {
+	public void enter(int no) throws InterruptedException {
 		boolean goesDown = goesDown(no);
 
 		while (true) {
-			try { mutex.P(); } catch (InterruptedException e) {}
+			mutex.P();
 			if (n == 0 || goesDown == down) break;
 			w++;
 			mutex.V();
@@ -26,8 +26,8 @@ public class Alley {
 		mutex.V();
 	}
 
-	public void leave(int no) {
-		try { mutex.P(); } catch (InterruptedException e) {}
+	public void leave(int no) throws InterruptedException {
+		mutex.P();
 		n--;
 		if (n == 0) {
 			Semaphore s = goesDown(no) ? bot : top;

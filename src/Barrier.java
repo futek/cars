@@ -11,24 +11,24 @@ public class Barrier {
         this.numberOfCars = numberOfCars;
     }
 
-    public void sync() {
+    public void sync() throws InterruptedException {
         if (!on) return;
 
-        try { mutex.P(); } catch (InterruptedException e) {}
+        mutex.P();
 
         n++;
 
         if (n < numberOfCars) {
             w++;
             mutex.V();
-            try { wait.P(); } catch (InterruptedException e) {}
+            wait.P();
             next.V();
             return;
         }
 
         for (n = 0; w > 0; w--) {
             wait.V();
-            try { next.P(); } catch (InterruptedException e) {}
+            next.P();
         }
 
         mutex.V();
@@ -38,10 +38,10 @@ public class Barrier {
         on = true;
     }
 
-    public void off() {
+    public void off() throws InterruptedException {
         on = false;
 
-        try { mutex.P(); } catch (InterruptedException e) {}
+        mutex.P();
 
         for (n = 0; w > 0; w--) {
             wait.V();

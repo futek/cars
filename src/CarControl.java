@@ -239,7 +239,7 @@ public class CarControl implements CarControlI{
     }
 
     public void barrierOff() {
-        barrier.off();
+        try { barrier.off(); } catch (InterruptedException e) {}
     }
 
     public void barrierShutDown() {
@@ -256,14 +256,13 @@ public class CarControl implements CarControlI{
     }
 
     public void removeCar(int no) {
-        if (car[no] != null) {
+        if (car[no].isAlive()) {
             car[no].interrupt();
-            car[no] = null;
         }
     }
 
     public void restoreCar(int no) {
-        if (car[no] == null) {
+        if (!car[no].isAlive()) {
             car[no] = new Car(no, cd, gate[no], alley, collision, barrier);
             car[no].start();
             cd.println("Car no. " + no + " restored");
