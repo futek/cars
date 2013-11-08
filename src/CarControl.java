@@ -186,7 +186,7 @@ class Car extends Thread {
                 collision.leave(newpos);
 
                 if (inAlley(newpos)) {
-                    try { alley.leave(no); } catch (InterruptedException ie) {};
+                    alley.leave(no);
                 }
 
                 cd.clear(curpos, newpos);
@@ -194,7 +194,7 @@ class Car extends Thread {
                 collision.leave(curpos);
 
                 if (inAlley(curpos)) {
-                    try { alley.leave(no); } catch (InterruptedException ie) {};
+                    alley.leave(no);
                 }
 
                 cd.clear(curpos);
@@ -253,7 +253,7 @@ public class CarControl implements CarControlI{
     }
 
     public void barrierOff() {
-        try { barrier.off(); } catch (InterruptedException e) {}
+        barrier.off();
     }
 
     public void barrierShutDown() {
