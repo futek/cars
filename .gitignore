@@ -4,5 +4,10 @@ bin/
 .settings/
 
 spin/pan*
-spin/*.trail
+spin/*.chk
+spin/*.d
 spin/*.dot
+spin/*.nvr
+spin/*.png
+spin/*.spd
+spin/*.trail
