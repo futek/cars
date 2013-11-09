@@ -62,7 +62,7 @@ proctype Car(bool goesDown) {
 
 #define I (goingDown == 0 || goingUp == 0)
 active proctype Check() {
-  !I -> assert(I)
+  atomic { !I -> assert(I) }
 }
 
 init {
