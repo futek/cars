@@ -1,12 +1,4 @@
-#define sem int
-
-inline p(s) {
-  atomic { s > 0 -> s-- }
-}
-
-inline v(s) {
-  s++
-}
+#include "semaphore.pml"
 
 int currentRound = 0;
 int carsOntoNextRound = 0;
