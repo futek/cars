@@ -6,11 +6,11 @@ public class Alley {
 		return no < 5;
 	}
 
-	public synchronized void enter(int no) {
+	public synchronized void enter(int no) throws InterruptedException {
 		boolean goesDown = goesDown(no);
 
 		if (n > 0 && goesDown != down) {
-		    try { wait(); } catch (InterruptedException e) {}
+		    wait();
 		}
 
 		n++;
