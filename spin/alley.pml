@@ -1,12 +1,4 @@
-#define sem int
-
-inline p(s) {
-  atomic { s > 0 -> s-- }
-}
-
-inline v(s) {
-  s++
-}
+#include "semaphore.pml"
 
 int goingDown = 0;
 int goingUp = 0;
@@ -14,26 +6,33 @@ int goingUp = 0;
 sem mutex = 1;
 sem top = 0;
 sem bot = 0;
-
 int n = 0;
 int w = 0;
 bool down = true;
 
 proctype Car(bool goesDown) {
   int t;
+  sem a, b;
+
+  if
+  :: goesDown -> a = top; b = bot
+  :: else -> a = bot; b = top
+  fi;
 
   do
   :: /* enter */
      do
-     ::
-        p(mutex);
-        if :: (n == 0 || goesDown == down) -> break :: else -> skip fi;
-        /* t = w; t++; w = t; */ w++;
+     :: p(mutex);
+        if
+        :: n == 0 || goesDown == down -> break
+        :: else -> skip
+        fi;
+        t = w; t++; w = t;
         v(mutex);
-        if :: goesDown -> p(top) :: else -> p(bot) fi
+        p(a)
      od;
-     /* t = n; t++; n = t; */ n++;
-     if :: (n == 1) -> down = goesDown :: else -> skip fi;
+     t = n; t++; n = t;
+     down = goesDown;
      v(mutex);
 
      /* record state */
@@ -44,15 +43,14 @@ proctype Car(bool goesDown) {
 
      /* leave */
      p(mutex);
-     /* t = n; t--; n = t; */ n--;
+     t = n; t--; n = t;
      if
-     :: (n == 0) ->
-        sem s;
-        if :: goesDown -> s = bot :: else -> s = top fi;
+     :: n == 0 ->
         do
-        :: if :: !(w > 0) -> break :: else -> skip fi;
-           /* t = w; t--; w = t; */ w--;
-           v(s)
+        :: w > 0 ->
+           t = w; t--; w = t;
+           v(b)
+        :: else -> break;
         od
      :: else -> skip
      fi;
@@ -67,7 +65,7 @@ active proctype Check() {
 
 init {
   int no;
-  for (no : 1 .. 2) {
+  for (no : 1 .. 4) {
     run Car(true);
     run Car(false)
   }
