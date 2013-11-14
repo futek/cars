@@ -17,7 +17,7 @@ public class Alley {
 
 		while ((n > 0 && goesDown != down) || (goesDown ? wb > 0 : wt > 0)) {
 		    wait();
-		    if (down != goesDown) break;
+		    if (n == 0 && down != goesDown) break;
 		}
 
 		if (goesDown) wt--; else wb--;
