@@ -8,16 +8,13 @@ public class Alley {
 		return no < 5;
 	}
 
-	// TODO: Fix deadlock...
-
 	public synchronized void enter(int no) throws InterruptedException {
 		boolean goesDown = goesDown(no);
 
 		if (goesDown) wt++; else wb++;
 
-		while ((n > 0 && goesDown != down) || (goesDown ? wb > 0 : wt > 0)) {
+		while (!(n == 0 && down != goesDown || (n == 0 || goesDown == down) && (goesDown && wb == 0 || !goesDown && wt == 0))) {
 		    wait();
-		    if (n == 0 && down != goesDown) break;
 		}
 
 		if (goesDown) wt--; else wb--;

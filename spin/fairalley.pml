@@ -14,13 +14,8 @@ inline enter() {
   fi;
 
   do
-  :: n > 0 && goesDown != down || goesDown && wb > 0 || !goesDown && wt > 0 ->
-     m_wait();
-     if
-     :: n == 0 && down != goesDown -> break
-     :: else -> skip
-     fi
-  :: else -> break;
+  :: n == 0 && down != goesDown || (n == 0 || goesDown == down) && (goesDown && wb == 0 || !goesDown && wt == 0) -> break
+  :: else -> m_wait()
   od;
 
   if
@@ -31,7 +26,7 @@ inline enter() {
   n++;
   down = goesDown;
 
-  m_exit()
+  m_leave()
 }
 
 inline leave() {
@@ -43,22 +38,26 @@ inline leave() {
   :: else -> skip
   fi;
 
-  m_exit()
+  m_leave()
 }
 
 int goingDown = 0;
 int goingUp = 0;
 
 proctype Car(bool goesDown) {
-  enter();
+  do
+  :: skip;
 
-  /* record state */
-  if
-  :: goesDown -> goingDown++; goingDown--
-  :: else -> goingUp++; goingUp--
-  fi;
+     a: enter();
 
-  leave();
+     /* record state */
+     if
+     :: goesDown -> goingDown++; goingDown--
+     :: else -> goingUp++; goingUp--
+     fi;
+
+     b: leave()
+  od
 }
 
 #define I (goingDown == 0 || goingUp == 0)
@@ -68,8 +67,17 @@ active proctype Check() {
 
 init {
   int i;
-  for (i : 1 .. 2) {
+  for (i : 1 .. 4) {
     run Car(true);
     run Car(false)
   }
 }
+
+/* ltl fairness { [] (Car[2]@a -> <> Car[2]@b)
+               && [] (Car[3]@a -> <> Car[3]@b)
+               && [] (Car[4]@a -> <> Car[4]@b)
+               && [] (Car[5]@a -> <> Car[5]@b)
+               && [] (Car[6]@a -> <> Car[6]@b)
+               && [] (Car[7]@a -> <> Car[7]@b)
+               && [] (Car[8]@a -> <> Car[8]@b)
+               && [] (Car[9]@a -> <> Car[9]@b) } */

@@ -1,33 +1,43 @@
 #include "semaphore.pml"
 
-sem m_lock = 1;   /* mutual exclusion semaphore */
-sem m_cond = 0;   /* condition semaphore */
-int m_count = 0;  /* number of waiting processes */
-int m_dummy = 0;  /* dummy variable used in for-loop */
+sem m_lock = 1; /* mutual exclusion semaphore */
+chan m_cond = [0] of { bool } /* condition rendezvous channel */
+int m_count = 0; /* number of waiting processes */
+int m_dummy = 0; /* dummy variable used in for-loop */
 
 inline m_enter() {
-  p(m_lock);
+  p(m_lock)
 }
 
-inline m_exit() {
-  v(m_lock);
+inline m_leave() {
+  v(m_lock)
 }
 
 inline m_wait() {
-  m_count++;
-  p(m_cond)
+  atomic {
+    m_count++;
+    v(m_lock);
+    m_cond!true;
+    p(m_lock)
+  }
 }
 
 inline m_notify() {
-  m_count--;
-  v(m_cond)
+  atomic {
+    if
+    :: m_count == 0 -> skip
+    :: else -> m_cond?true; m_count--
+    fi
+  }
 }
 
 inline m_notifyAll() {
-  m_count = 0;
-  for (m_dummy : 1 .. m_count) {
-    v(m_cond)
-  };
+  atomic {
+    do
+    :: m_count == 0 -> break
+    :: else -> m_cond?true; m_count--
+    od
+  }
 }
 
 /*
