@@ -1,0 +1,118 @@
+Depth=  390253 States=   1e+006 Transitions= 2.09e+006 Nodes=  314003 Memory=   358.851	t=     5.95 R=  2e+005
+Depth=  750644 States=   2e+006 Transitions= 4.36e+006 Nodes=  594080 Memory=   372.425	t=     14.3 R=  1e+005
+Depth= 1078968 States=   3e+006 Transitions= 6.7e+006 Nodes=  870113 Memory=   386.195	t=     24.1 R=  1e+005
+Depth= 1368840 States=   4e+006 Transitions= 9.02e+006 Nodes= 1069783 Memory=   396.449	t=       34 R=  1e+005
+Depth= 1539473 States=   5e+006 Transitions= 1.12e+007 Nodes= 1180443 Memory=   402.211	t=     43.6 R=  1e+005
+Depth= 1747781 States=   6e+006 Transitions= 1.36e+007 Nodes= 1321423 Memory=   409.437	t=     53.6 R=  1e+005
+Depth= 1992216 States=   7e+006 Transitions= 1.61e+007 Nodes= 1490031 Memory=   418.129	t=     64.1 R=  1e+005
+Depth= 2118526 States=   8e+006 Transitions= 1.86e+007 Nodes= 1655534 Memory=   426.625	t=     74.7 R=  1e+005
+Depth= 2166810 States=   9e+006 Transitions= 2.09e+007 Nodes= 1814824 Memory=   434.730	t=     86.2 R=  1e+005
+Depth= 2177329 States=   1e+007 Transitions= 2.33e+007 Nodes= 1936227 Memory=   440.882	t=     98.5 R=  1e+005
+Depth= 2177329 States= 1.1e+007 Transitions= 2.55e+007 Nodes= 1962243 Memory=   442.250	t=      111 R=  1e+005
+Depth= 2177329 States= 1.2e+007 Transitions= 2.77e+007 Nodes= 2005369 Memory=   444.398	t=      124 R=  1e+005
+Depth= 2177329 States= 1.3e+007 Transitions= 2.98e+007 Nodes= 2018495 Memory=   445.179	t=      138 R=  9e+004
+Depth= 2177329 States= 1.4e+007 Transitions= 3.2e+007 Nodes= 2037294 Memory=   446.156	t=      151 R=  9e+004
+Depth= 2177329 States= 1.5e+007 Transitions= 3.41e+007 Nodes= 2036341 Memory=   446.351	t=      164 R=  9e+004
+Depth= 2177329 States= 1.6e+007 Transitions= 3.62e+007 Nodes= 2043359 Memory=   446.644	t=      177 R=  9e+004
+Depth= 2177329 States= 1.7e+007 Transitions= 3.83e+007 Nodes= 2050530 Memory=   447.035	t=      191 R=  9e+004
+Depth= 2177329 States= 1.8e+007 Transitions= 4.05e+007 Nodes= 2060388 Memory=   447.621	t=      204 R=  9e+004
+Depth= 2177329 States= 1.9e+007 Transitions= 4.26e+007 Nodes= 2062094 Memory=   448.011	t=      217 R=  9e+004
+Depth= 2177329 States=   2e+007 Transitions= 4.47e+007 Nodes= 2081974 Memory=   448.890	t=      230 R=  9e+004
+Depth= 2177329 States= 2.1e+007 Transitions= 4.68e+007 Nodes= 2074408 Memory=   448.890	t=      243 R=  9e+004
+Depth= 2177329 States= 2.2e+007 Transitions= 4.88e+007 Nodes= 2069084 Memory=   448.890	t=      257 R=  9e+004
+Depth= 2177329 States= 2.3e+007 Transitions= 5.09e+007 Nodes= 2060695 Memory=   448.890	t=      269 R=  9e+004
+Depth= 2177329 States= 2.4e+007 Transitions= 5.3e+007 Nodes= 2051294 Memory=   448.890	t=      283 R=  8e+004
+Depth= 2177329 States= 2.5e+007 Transitions= 5.5e+007 Nodes= 2049933 Memory=   448.890	t=      296 R=  8e+004
+Depth= 2177329 States= 2.6e+007 Transitions= 5.71e+007 Nodes= 2059045 Memory=   448.890	t=      309 R=  8e+004
+Depth= 2177329 States= 2.7e+007 Transitions= 5.92e+007 Nodes= 2066606 Memory=   449.086	t=      322 R=  8e+004
+Depth= 2177329 States= 2.8e+007 Transitions= 6.13e+007 Nodes= 2068637 Memory=   449.281	t=      336 R=  8e+004
+Depth= 2177329 States= 2.9e+007 Transitions= 6.34e+007 Nodes= 2074782 Memory=   449.476	t=      349 R=  8e+004
+Depth= 2177329 States=   3e+007 Transitions= 6.55e+007 Nodes= 2058916 Memory=   449.476	t=      362 R=  8e+004
+Depth= 2177329 States= 3.1e+007 Transitions= 6.75e+007 Nodes= 2078244 Memory=   449.671	t=      376 R=  8e+004
+Depth= 2177329 States= 3.2e+007 Transitions= 6.96e+007 Nodes= 2082099 Memory=   449.769	t=      390 R=  8e+004
+Depth= 2177329 States= 3.3e+007 Transitions= 7.16e+007 Nodes= 2071034 Memory=   449.964	t=      403 R=  8e+004
+Depth= 2177329 States= 3.4e+007 Transitions= 7.37e+007 Nodes= 2061760 Memory=   449.964	t=      417 R=  8e+004
+Depth= 2177329 States= 3.5e+007 Transitions= 7.57e+007 Nodes= 2054039 Memory=   449.964	t=      430 R=  8e+004
+Depth= 2177329 States= 3.6e+007 Transitions= 7.78e+007 Nodes= 2042185 Memory=   449.964	t=      444 R=  8e+004
+Depth= 2177329 States= 3.7e+007 Transitions= 7.98e+007 Nodes= 2036588 Memory=   449.964	t=      458 R=  8e+004
+Depth= 2177329 States= 3.8e+007 Transitions= 8.18e+007 Nodes= 2038353 Memory=   449.964	t=      471 R=  8e+004
+Depth= 2177329 States= 3.9e+007 Transitions= 8.38e+007 Nodes= 2035792 Memory=   449.964	t=      485 R=  8e+004
+Depth= 2177329 States=   4e+007 Transitions= 8.59e+007 Nodes= 2038247 Memory=   449.964	t=      498 R=  8e+004
+Depth= 2177329 States= 4.1e+007 Transitions= 8.79e+007 Nodes= 2031468 Memory=   449.964	t=      512 R=  8e+004
+Depth= 2177329 States= 4.2e+007 Transitions= 8.99e+007 Nodes= 2027314 Memory=   449.964	t=      526 R=  8e+004
+Depth= 2177329 States= 4.3e+007 Transitions= 9.19e+007 Nodes= 2019257 Memory=   449.964	t=      540 R=  8e+004
+Depth= 2177329 States= 4.4e+007 Transitions= 9.39e+007 Nodes= 2006232 Memory=   449.964	t=      554 R=  8e+004
+Depth= 2177329 States= 4.5e+007 Transitions= 9.6e+007 Nodes= 2005654 Memory=   449.964	t=      568 R=  8e+004
+Depth= 2177329 States= 4.6e+007 Transitions= 9.8e+007 Nodes= 1996872 Memory=   449.964	t=      581 R=  8e+004
+Depth= 2177329 States= 4.7e+007 Transitions=   1e+008 Nodes= 1992815 Memory=   449.964	t=      595 R=  8e+004
+Depth= 2177329 States= 4.8e+007 Transitions= 1.02e+008 Nodes= 1964003 Memory=   449.964	t=      609 R=  8e+004
+Depth= 2177329 States= 4.9e+007 Transitions= 1.04e+008 Nodes= 1956509 Memory=   449.964	t=      623 R=  8e+004
+Depth= 2177329 States=   5e+007 Transitions= 1.06e+008 Nodes= 1954044 Memory=   449.964	t=      637 R=  8e+004
+Depth= 2177329 States= 5.1e+007 Transitions= 1.08e+008 Nodes= 1943625 Memory=   449.964	t=      651 R=  8e+004
+Depth= 2177329 States= 5.2e+007 Transitions= 1.1e+008 Nodes= 1925576 Memory=   449.964	t=      665 R=  8e+004
+Depth= 2177329 States= 5.3e+007 Transitions= 1.12e+008 Nodes= 1895894 Memory=   449.964	t=      679 R=  8e+004
+Depth= 2177329 States= 5.4e+007 Transitions= 1.14e+008 Nodes= 1887951 Memory=   449.964	t=      693 R=  8e+004
+Depth= 2177329 States= 5.5e+007 Transitions= 1.16e+008 Nodes= 1857340 Memory=   449.964	t=      707 R=  8e+004
+Depth= 2177329 States= 5.6e+007 Transitions= 1.18e+008 Nodes= 1829718 Memory=   449.964	t=      721 R=  8e+004
+Depth= 2177329 States= 5.7e+007 Transitions= 1.2e+008 Nodes= 1805999 Memory=   449.964	t=      736 R=  8e+004
+Depth= 2177329 States= 5.8e+007 Transitions= 1.22e+008 Nodes= 1795507 Memory=   449.964	t=      750 R=  8e+004
+Depth= 2177329 States= 5.9e+007 Transitions= 1.24e+008 Nodes= 1780427 Memory=   449.964	t=      765 R=  8e+004
+Depth= 2177329 States=   6e+007 Transitions= 1.26e+008 Nodes= 1749996 Memory=   449.964	t=      780 R=  8e+004
+Depth= 2177329 States= 6.1e+007 Transitions= 1.28e+008 Nodes= 1728841 Memory=   449.964	t=      795 R=  8e+004
+Depth= 2177329 States= 6.2e+007 Transitions= 1.3e+008 Nodes= 1701583 Memory=   449.964	t=      810 R=  8e+004
+Depth= 2177329 States= 6.3e+007 Transitions= 1.32e+008 Nodes= 1670706 Memory=   449.964	t=      825 R=  8e+004
+Depth= 2177329 States= 6.4e+007 Transitions= 1.34e+008 Nodes= 1633237 Memory=   449.964	t=      840 R=  8e+004
+Depth= 2177329 States= 6.5e+007 Transitions= 1.36e+008 Nodes= 1606476 Memory=   449.964	t=      855 R=  8e+004
+Depth= 2177329 States= 6.6e+007 Transitions= 1.38e+008 Nodes= 1560813 Memory=   449.964	t=      869 R=  8e+004
+Depth= 2177329 States= 6.7e+007 Transitions= 1.4e+008 Nodes= 1532760 Memory=   449.964	t=      884 R=  8e+004
+Depth= 2177329 States= 6.8e+007 Transitions= 1.42e+008 Nodes= 1496643 Memory=   449.964	t=      898 R=  8e+004
+Depth= 2177329 States= 6.9e+007 Transitions= 1.44e+008 Nodes= 1462226 Memory=   449.964	t=      914 R=  8e+004
+Depth= 2177329 States=   7e+007 Transitions= 1.46e+008 Nodes= 1431677 Memory=   449.964	t=      929 R=  8e+004
+Depth= 2177329 States= 7.1e+007 Transitions= 1.47e+008 Nodes= 1409047 Memory=   449.964	t=      945 R=  8e+004
+Depth= 2177329 States= 7.2e+007 Transitions= 1.49e+008 Nodes= 1371387 Memory=   449.964	t=      961 R=  7e+004
+Depth= 2177329 States= 7.3e+007 Transitions= 1.51e+008 Nodes= 1330136 Memory=   449.964	t=      977 R=  7e+004
+Depth= 2177329 States= 7.4e+007 Transitions= 1.53e+008 Nodes= 1317808 Memory=   449.964	t=      993 R=  7e+004
+Depth= 2177329 States= 7.5e+007 Transitions= 1.55e+008 Nodes= 1258001 Memory=   449.964	t= 1.01e+003 R=  7e+004
+Depth= 2177329 States= 7.6e+007 Transitions= 1.57e+008 Nodes= 1194515 Memory=   449.964	t= 1.02e+003 R=  7e+004
+Depth= 2177329 States= 7.7e+007 Transitions= 1.59e+008 Nodes= 1111908 Memory=   449.964	t= 1.04e+003 R=  7e+004
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+	+ Graph Encoding (-DMA=100)
+
+Full statespace search for:
+	never claim         	- (none specified)
+	assertion violations	+
+	cycle checks       	- (disabled by -DSAFETY)
+	invalid end states	+
+
+State-vector 100 byte, depth reached 2177329, errors: 0
+MA stats: -DMA=90 is sufficient
+Minimized Automaton:	1096766 nodes and 3.89984e+006 edges
+ 77087599 states, stored
+ 82018787 states, matched
+1.5910639e+008 transitions (= stored+matched)
+        0 atomic steps
+
+Stats on memory usage (in Megabytes):
+ 8233.844	equivalent memory usage for states (stored*(State-vector + overhead))
+  106.737	actual memory usage for states (compression: 1.30%)
+  343.323	memory used for DFS stack (-m10000000)
+  449.964	total actual memory usage
+
+
+unreached in proctype Car1
+	barrier2.pml:52, state 49, "-end-"
+	(1 of 49 states)
+unreached in proctype Car2
+	barrier2.pml:61, state 49, "-end-"
+	(1 of 49 states)
+unreached in proctype Car
+	barrier2.pml:67, state 48, "-end-"
+	(1 of 48 states)
+unreached in proctype Check
+	barrier2.pml:72, state 4, "-end-"
+	(1 of 4 states)
+
+pan: elapsed time 1.04e+003 seconds
+pan: rate 74140.442 states/second

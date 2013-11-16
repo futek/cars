@@ -5,7 +5,6 @@ public class Barrier {
     private Semaphore wait = new Semaphore(0);
     private Semaphore next = new Semaphore(0);
     private int n = 0;
-    private int w = 0;
 
     public Barrier(int numberOfCars) {
         this.numberOfCars = numberOfCars;
@@ -19,33 +18,43 @@ public class Barrier {
         n++;
 
         if (n < numberOfCars) {
-            w++;
             mutex.V();
             wait.P();
             next.V();
             return;
         }
 
-        for (n = 0; w > 0; w--) {
+        while (n > 1) {
             wait.V();
             next.P();
+            n--;
         }
+
+        n = 0;
 
         mutex.V();
     }
 
-    public void on() {
+    public void on() throws InterruptedException {
+        mutex.P();
+
         on = true;
+
+        mutex.V();
     }
 
     public void off() throws InterruptedException {
-        on = false;
-
         mutex.P();
 
-        for (n = 0; w > 0; w--) {
+        on = false;
+
+        while (n > 1) {
             wait.V();
+            next.P();
+            n--;
         }
+
+        n = 0;
 
         mutex.V();
     }

@@ -249,7 +249,7 @@ public class CarControl implements CarControlI{
     }
 
     public void barrierOn() {
-        barrier.on();
+        try { barrier.on(); } catch (InterruptedException e) {}
     }
 
     public void barrierOff() {

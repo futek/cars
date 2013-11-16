@@ -14,7 +14,6 @@ sem mutex = 1;
 sem wait_ = 0;
 sem next = 0;
 int n = 0;
-int w = 0;
 
 inline sync() {
   int t;
@@ -26,19 +25,18 @@ inline sync() {
      t = n; t++; n = t;
      if
      :: n < numberOfCars ->
-        t = w; t++; w = t;
         v(mutex);
         p(wait_);
         v(next)
      :: else ->
-        n = 0;
         do
-        :: w > 0 ->
+        :: n > 1 ->
            v(wait_);
            p(next);
-           t = w; t--; w = t
+           t = n; t--; n = t
         :: else -> break
         od;
+        n = 0;
         v(mutex)
      fi
   fi
