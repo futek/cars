@@ -1,0 +1,97 @@
+Depth=  401692 States=   1e+006 Transitions= 1.96e+006 Memory=   337.371	t=    0.419 R=  2e+006
+Depth=  756121 States=   2e+006 Transitions= 4.07e+006 Memory=   337.371	t=    0.864 R=  2e+006
+Depth= 1079044 States=   3e+006 Transitions= 6.21e+006 Memory=   337.371	t=     1.32 R=  2e+006
+Depth= 1376463 States=   4e+006 Transitions= 8.39e+006 Memory=   337.371	t=     1.77 R=  2e+006
+Depth= 1633200 States=   5e+006 Transitions= 1.06e+007 Memory=   337.371	t=     2.23 R=  2e+006
+Depth= 1863620 States=   6e+006 Transitions= 1.27e+007 Memory=   337.371	t=      2.7 R=  2e+006
+Depth= 2065657 States=   7e+006 Transitions= 1.49e+007 Memory=   337.371	t=     3.16 R=  2e+006
+Depth= 2258860 States=   8e+006 Transitions= 1.71e+007 Memory=   337.371	t=     3.63 R=  2e+006
+Depth= 2457946 States=   9e+006 Transitions= 1.93e+007 Memory=   337.371	t=      4.1 R=  2e+006
+Depth= 2659572 States=   1e+007 Transitions= 2.15e+007 Memory=   337.371	t=     4.58 R=  2e+006
+Depth= 2865064 States= 1.1e+007 Transitions= 2.38e+007 Memory=   337.371	t=     5.06 R=  2e+006
+Depth= 3065402 States= 1.2e+007 Transitions= 2.6e+007 Memory=   337.371	t=     5.54 R=  2e+006
+Depth= 3261065 States= 1.3e+007 Transitions= 2.83e+007 Memory=   337.371	t=     6.02 R=  2e+006
+Depth= 3460809 States= 1.4e+007 Transitions= 3.06e+007 Memory=   337.371	t=     6.51 R=  2e+006
+Depth= 3682523 States= 1.5e+007 Transitions= 3.28e+007 Memory=   337.371	t=        7 R=  2e+006
+Depth= 3895573 States= 1.6e+007 Transitions= 3.51e+007 Memory=   337.371	t=     7.48 R=  2e+006
+Depth= 4122056 States= 1.7e+007 Transitions= 3.74e+007 Memory=   337.371	t=     7.97 R=  2e+006
+Depth= 4342305 States= 1.8e+007 Transitions= 3.96e+007 Memory=   337.371	t=     8.45 R=  2e+006
+Depth= 4591433 States= 1.9e+007 Transitions= 4.18e+007 Memory=   337.371	t=     8.93 R=  2e+006
+Depth= 4826773 States=   2e+007 Transitions= 4.4e+007 Memory=   337.371	t=     9.41 R=  2e+006
+Depth= 5056536 States= 2.1e+007 Transitions= 4.62e+007 Memory=   337.371	t=     9.88 R=  2e+006
+Depth= 5280179 States= 2.2e+007 Transitions= 4.84e+007 Memory=   337.371	t=     10.4 R=  2e+006
+Depth= 5532439 States= 2.3e+007 Transitions= 5.06e+007 Memory=   337.371	t=     10.8 R=  2e+006
+Depth= 5783548 States= 2.4e+007 Transitions= 5.28e+007 Memory=   337.371	t=     11.3 R=  2e+006
+Depth= 6007712 States= 2.5e+007 Transitions= 5.5e+007 Memory=   337.371	t=     11.8 R=  2e+006
+Depth= 6243896 States= 2.6e+007 Transitions= 5.72e+007 Memory=   337.371	t=     12.3 R=  2e+006
+Depth= 6494002 States= 2.7e+007 Transitions= 5.93e+007 Memory=   337.371	t=     12.8 R=  2e+006
+Depth= 6732079 States= 2.8e+007 Transitions= 6.14e+007 Memory=   337.371	t=     13.2 R=  2e+006
+Depth= 6949385 States= 2.9e+007 Transitions= 6.34e+007 Memory=   337.371	t=     13.7 R=  2e+006
+Depth= 7162303 States=   3e+007 Transitions= 6.54e+007 Memory=   337.371	t=     14.1 R=  2e+006
+Depth= 7353853 States= 3.1e+007 Transitions= 6.74e+007 Memory=   337.371	t=     14.6 R=  2e+006
+Depth= 7515233 States= 3.2e+007 Transitions= 6.93e+007 Memory=   337.371	t=       15 R=  2e+006
+Depth= 7645613 States= 3.3e+007 Transitions= 7.12e+007 Memory=   337.371	t=     15.5 R=  2e+006
+Depth= 7747947 States= 3.4e+007 Transitions= 7.32e+007 Memory=   337.371	t=     15.9 R=  2e+006
+Depth= 7822871 States= 3.5e+007 Transitions= 7.51e+007 Memory=   337.371	t=     16.4 R=  2e+006
+Depth= 7878335 States= 3.6e+007 Transitions= 7.71e+007 Memory=   337.371	t=     16.9 R=  2e+006
+Depth= 7915624 States= 3.7e+007 Transitions= 7.92e+007 Memory=   337.371	t=     17.3 R=  2e+006
+Depth= 7938347 States= 3.8e+007 Transitions= 8.14e+007 Memory=   337.371	t=     17.8 R=  2e+006
+Depth= 7950334 States= 3.9e+007 Transitions= 8.37e+007 Memory=   337.371	t=     18.3 R=  2e+006
+Depth= 7956566 States=   4e+007 Transitions= 8.61e+007 Memory=   337.371	t=     18.9 R=  2e+006
+Depth= 7961149 States= 4.1e+007 Transitions= 8.86e+007 Memory=   337.371	t=     19.4 R=  2e+006
+Depth= 7961657 States= 4.2e+007 Transitions= 9.12e+007 Memory=   337.371	t=       20 R=  2e+006
+Depth= 7961657 States= 4.3e+007 Transitions= 9.4e+007 Memory=   337.371	t=     20.6 R=  2e+006
+Depth= 7961657 States= 4.4e+007 Transitions= 9.68e+007 Memory=   337.371	t=     21.1 R=  2e+006
+Depth= 7961657 States= 4.5e+007 Transitions= 9.95e+007 Memory=   337.371	t=     21.7 R=  2e+006
+Depth= 7961657 States= 4.6e+007 Transitions= 1.02e+008 Memory=   337.371	t=     22.3 R=  2e+006
+Depth= 7961657 States= 4.7e+007 Transitions= 1.05e+008 Memory=   337.371	t=     22.8 R=  2e+006
+Depth= 7961657 States= 4.8e+007 Transitions= 1.07e+008 Memory=   337.371	t=     23.4 R=  2e+006
+Depth= 7961657 States= 4.9e+007 Transitions= 1.1e+008 Memory=   337.371	t=       24 R=  2e+006
+Depth= 7961657 States=   5e+007 Transitions= 1.12e+008 Memory=   337.371	t=     24.6 R=  2e+006
+Depth= 7961657 States= 5.1e+007 Transitions= 1.15e+008 Memory=   337.371	t=     25.3 R=  2e+006
+Depth= 7961657 States= 5.2e+007 Transitions= 1.18e+008 Memory=   337.371	t=       26 R=  2e+006
+Depth= 7961657 States= 5.3e+007 Transitions= 1.21e+008 Memory=   337.371	t=     26.8 R=  2e+006
+Depth= 7961657 States= 5.4e+007 Transitions= 1.25e+008 Memory=   337.371	t=     27.8 R=  2e+006
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+
+Bit statespace search for:
+	never claim         	- (none specified)
+	assertion violations	+
+	cycle checks       	- (disabled by -DSAFETY)
+	invalid end states	+
+
+State-vector 120 byte, depth reached 7961657, errors: 0
+ 54909723 states, stored
+ 73677069 states, matched
+1.2858679e+008 transitions (= stored+matched)
+        0 atomic steps
+
+hash factor: 2.44433 (best if > 100.)
+
+bits set per state: 3 (-k3)
+
+Stats on memory usage (in Megabytes):
+ 6493.383	equivalent memory usage for states (stored*(State-vector + overhead))
+   16.000	memory used for hash array (-w27)
+   16.000	memory used for bit stack
+  305.176	memory used for DFS stack (-m8000000)
+  337.371	total actual memory usage
+
+
+unreached in proctype Car1
+	barrier2.pml:54, state 52, "-end-"
+	(1 of 52 states)
+unreached in proctype Car2
+	barrier2.pml:63, state 52, "-end-"
+	(1 of 52 states)
+unreached in proctype Car
+	barrier2.pml:69, state 51, "-end-"
+	(1 of 51 states)
+unreached in proctype Check
+	barrier2.pml:74, state 4, "-end-"
+	(1 of 4 states)
+
+pan: elapsed time 28.8 seconds
+pan: rate 1907846.3 states/second
