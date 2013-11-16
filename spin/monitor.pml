@@ -3,7 +3,6 @@
 sem m_lock = 1; /* mutual exclusion semaphore */
 chan m_cond = [0] of { bool } /* condition rendezvous channel */
 int m_count = 0; /* number of waiting processes */
-int m_dummy = 0; /* dummy variable used in for-loop */
 
 inline m_enter() {
   p(m_lock)
