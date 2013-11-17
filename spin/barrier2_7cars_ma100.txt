@@ -1,3 +1,4 @@
+$ spin -a barrier2.pml && gcc -O2 -DSAFETY -DMA=100 -o pan pan.c && pan -m3000000
 Depth=  390253 States=   1e+006 Transitions= 2.09e+006 Nodes=  314003 Memory=   358.851	t=     5.95 R=  2e+005
 Depth=  750644 States=   2e+006 Transitions= 4.36e+006 Nodes=  594080 Memory=   372.425	t=     14.3 R=  1e+005
 Depth= 1078968 States=   3e+006 Transitions= 6.7e+006 Nodes=  870113 Memory=   386.195	t=     24.1 R=  1e+005

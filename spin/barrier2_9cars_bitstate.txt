@@ -1,3 +1,4 @@
+$ spin -a barrier2.pml && gcc -O2 -DSAFETY -DBITSTATE -o pan pan.c && pan -m30000000
 Depth=  450020 States=   1e+006 Transitions= 2.01e+006 Memory=   413.665	t=    0.425 R=  2e+006
 Depth=  842017 States=   2e+006 Transitions= 4.19e+006 Memory=   413.665	t=    0.878 R=  2e+006
 Depth= 1206206 States=   3e+006 Transitions= 6.44e+006 Memory=   413.665	t=     1.34 R=  2e+006
