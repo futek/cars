@@ -8,15 +8,19 @@ public class Alley {
 		return no < 5;
 	}
 
+	private boolean allowedToEnter(boolean goesDown) {
+        boolean emptyAndNewDirection = n == 0 && down != goesDown;
+        boolean emptyOrSameDirection = n == 0 || goesDown == down;
+        boolean noCarsWaiting = goesDown && wb == 0 || !goesDown && wt == 0;
+
+        return emptyAndNewDirection || emptyOrSameDirection && noCarsWaiting;
+    }
+
 	public synchronized void enter(int no) throws InterruptedException {
 		boolean goesDown = goesDown(no);
 
 		if (goesDown) wt++; else wb++;
-
-		while (!(n == 0 && down != goesDown || (n == 0 || goesDown == down) && (goesDown && wb == 0 || !goesDown && wt == 0))) {
-		    wait();
-		}
-
+		while (!allowedToEnter(goesDown)) wait();
 		if (goesDown) wt--; else wb--;
 
 		n++;
