@@ -9,7 +9,7 @@ public class Alley {
 	public synchronized void enter(int no) throws InterruptedException {
 		boolean goesDown = goesDown(no);
 
-		if (n > 0 && goesDown != down) {
+		while (n > 0 && goesDown != down) {
 		    wait();
 		}
 
