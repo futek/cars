@@ -1,9 +1,5 @@
 #include "semaphore.pml"
 
-/* auxiliary variables */
-int goingDown = 0;
-int goingUp = 0;
-
 /* synchronization variables */
 sem mutex = 1;
 sem wait_ = 0;
@@ -47,19 +43,31 @@ inline leave(goesDown) {
   v(mutex)
 }
 
-proctype Car(bool goesDown) {
-  int t;
+/* auxiliary variables */
+int goingDown = 0;
+int goingUp = 0;
 
+active [2] proctype CarGoingDown() {
   do
-  :: enter(goesDown);
+  :: enter(true);
 
      /* record state */
-     if
-     :: goesDown -> goingDown++; goingDown--
-     :: else -> goingUp++; goingUp--
-     fi;
+     goingDown++;
+     goingDown--;
 
-     leave(goesDown)
+     leave(true)
+  od
+}
+
+active [2] proctype CarGoingUp() {
+  do
+  :: enter(false);
+
+     /* record state */
+     goingUp++;
+     goingUp--;
+
+     leave(false)
   od
 }
 
@@ -68,10 +76,4 @@ active proctype Check() {
   atomic { !I -> assert(I) }
 }
 
-init {
-  int i;
-  for (i : 1 .. 4) {
-    run Car(true);
-    run Car(false)
-  }
-}
+/* ltl progress { []<>( goingDown > 0 || goingUp > 0 ) } */
