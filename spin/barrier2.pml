@@ -24,11 +24,7 @@ inline sync() {
      p(mutex);
      t = n; t++; n = t;
      if
-     :: n < numberOfCars ->
-        v(mutex);
-        p(wait_);
-        v(next)
-     :: else ->
+     :: n == numberOfCars ->
         do
         :: n > 1 ->
            v(wait_);
@@ -38,6 +34,10 @@ inline sync() {
         od;
         n = 0;
         v(mutex)
+     :: else ->
+        v(mutex);
+        p(wait_);
+        v(next)
      fi
   fi
 }

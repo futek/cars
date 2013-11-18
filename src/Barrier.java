@@ -17,22 +17,21 @@ public class Barrier {
 
         n++;
 
-        if (n < numberOfCars) {
+        if (n == numberOfCars) {
+            while (n > 1) {
+                wait.V();
+                next.P();
+                n--;
+            }
+
+            n = 0;
+
+            mutex.V();
+        } else {
             mutex.V();
             wait.P();
             next.V();
-            return;
         }
-
-        while (n > 1) {
-            wait.V();
-            next.P();
-            n--;
-        }
-
-        n = 0;
-
-        mutex.V();
     }
 
     public void on() throws InterruptedException {
