@@ -8,7 +8,7 @@ public class Barrier {
         this.numberOfCars = numberOfCars;
     }
 
-    public synchronized void sync() {
+    public synchronized void sync() throws InterruptedException {
         boolean localTicket = ticket;
 
         if (!on) return;
@@ -20,8 +20,8 @@ public class Barrier {
             ticket = !ticket;
             notifyAll();
         } else {
-            while (localTicket == ticket) {
-                try { wait(); } catch (InterruptedException e) {}
+            while (on && localTicket == ticket) {
+                wait();
             }
         }
     }
@@ -32,15 +32,18 @@ public class Barrier {
 
     public synchronized void off() {
         on = false;
+        n = 0;
 
         notifyAll();
     }
 
-    public synchronized void shutdown() {
+    public synchronized void shutdown() throws InterruptedException {
         while (n != 0) {
-            try { wait(); } catch (InterruptedException e) {}
+            wait();
         }
 
+        // reentrant synchronization
+        // thread will not deadlock itself
         off();
     }
 }

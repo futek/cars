@@ -257,7 +257,7 @@ public class CarControl implements CarControlI{
     }
 
     public void barrierShutDown() {
-        barrier.shutdown();
+        try { barrier.shutdown(); } catch (InterruptedException e) {}
     }
 
     public void setLimit(int k) {
