@@ -1,11 +1,12 @@
 #include "monitor.pml"
 
+/* synchronization variables */
 int n = 0;      /* number of cars in alley */
 int wt = 0;     /* number of cars waiting at top */
 int wb = 0;     /* number of cars waiting at bottom */
 bool down = 1;  /* last observed travel direction */
 
-inline enter() {
+inline enter(goesDown) {
   m_enter();
 
   if
@@ -41,22 +42,35 @@ inline leave() {
   m_leave()
 }
 
+/* auxiliary variables */
 int goingDown = 0;
 int goingUp = 0;
 
-proctype Car(bool goesDown) {
+active [4] proctype CarGoingDown() {
   do
   :: skip;
 
-     a: enter();
+a:   enter(true);
 
      /* record state */
-     if
-     :: goesDown -> goingDown++; goingDown--
-     :: else -> goingUp++; goingUp--
-     fi;
+     goingDown++;
+     goingDown--;
 
-     b: leave()
+b:   leave()
+  od
+}
+
+active [4] proctype CarGoingUp() {
+  do
+  :: skip;
+
+a:   enter(false);
+
+     /* record state */
+     goingUp++;
+     goingUp--;
+
+b:   leave()
   od
 }
 
@@ -65,19 +79,5 @@ active proctype Check() {
   atomic { !I -> assert(I) }
 }
 
-init {
-  int i;
-  for (i : 1 .. 4) {
-    run Car(true);
-    run Car(false)
-  }
-}
-
-/* ltl fairness { [] (Car[2]@a -> <> Car[2]@b)
-               && [] (Car[3]@a -> <> Car[3]@b)
-               && [] (Car[4]@a -> <> Car[4]@b)
-               && [] (Car[5]@a -> <> Car[5]@b)
-               && [] (Car[6]@a -> <> Car[6]@b)
-               && [] (Car[7]@a -> <> Car[7]@b)
-               && [] (Car[8]@a -> <> Car[8]@b)
-               && [] (Car[9]@a -> <> Car[9]@b) } */
+/* ltl fairness1 { [] (CarGoingDown[0]@a -> <> CarGoingDown[0]@b) } */
+/* ltl fairness2 { [] (CarGoingUp[4]@a -> <> CarGoingUp[4]@b) } */
