@@ -1,7 +1,8 @@
 #include "semaphore.pml"
 
-sem m_lock = 1; /* mutual exclusion semaphore */
-chan m_cond = [0] of { bool } /* condition rendezvous channel */
+sem m_lock = 1;  /* mutual exclusion semaphore */
+sem m_cond = 0;  /* condition semaphore */
+sem m_next = 0;  /* next semaphore */
 int m_count = 0; /* number of waiting processes */
 
 inline m_enter() {
@@ -16,7 +17,8 @@ inline m_wait() {
   atomic {
     m_count++;
     v(m_lock);
-    m_cond!true;
+    p(m_cond);
+    v(m_next);
     p(m_lock)
   }
 }
@@ -25,7 +27,7 @@ inline m_notify() {
   atomic {
     if
     :: m_count == 0 -> skip
-    :: else -> m_cond?true; m_count--
+    :: else -> v(m_cond); p(m_next); m_count--
     fi
   }
 }
@@ -34,7 +36,7 @@ inline m_notifyAll() {
   atomic {
     do
     :: m_count == 0 -> break
-    :: else -> m_cond?true; m_count--
+    :: else -> v(m_cond); p(m_next); m_count--
     od
   }
 }
