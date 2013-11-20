@@ -95,6 +95,27 @@ public class CarTest extends Thread {
             	cars.removeCar(5);
             	break;
             	
+           
+            case 6:
+            	// Demonstration of deadlock in fair alley.
+            	// Should deadlock the top row in the fair alley monitor solution
+            	for (int i = 1; i < 9; i++) {
+                    cars.setVariation(i,0);
+                    cars.setSpeed(i,100);
+                };
+            	for (int i = 1; i < 9; i++) {
+                    cars.startCar(i);
+                    sleep(200);
+                };
+            	sleep(3000);
+            	cars.removeCar(5);
+            	sleep(1500);
+            	cars.removeCar(7);
+            	cars.removeCar(6);
+            	cars.removeCar(8);
+            	
+            	break;
+            	
 
             case 19:
                 // Demonstration of speed setting.
