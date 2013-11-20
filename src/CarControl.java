@@ -150,22 +150,17 @@ class Car extends Thread {
 
                 newpos = nextPos(curpos);
 
-                if (inAlley(curpos)) {
-                	if (!inAlley(newpos)) {
-                		alley.leave(no);
-                	}
-                } else {
-                	if (inAlley(newpos)) {
-                		alley.enter(no);
-                	}
+                if (!inAlley(curpos) && inAlley(newpos)) {
+                	alley.enter(no);
                 }
 
                 collision.enter(newpos);
-                inbetweenFields = true;
 
                 if (infrontOfBarrier(curpos, newpos)) {
                     barrier.sync();
                 }
+
+                inbetweenFields = true;
 
                 //  Move to new position
                 cd.clear(curpos);
@@ -175,7 +170,13 @@ class Car extends Thread {
                 cd.mark(newpos,col,no);
 
                 collision.leave(curpos);
+
+                if (inAlley(curpos) && !inAlley(newpos)) {
+                    alley.leave(no);
+                }
+
                 curpos = newpos;
+
                 inbetweenFields = false;
             }
         } catch (InterruptedException e) {
