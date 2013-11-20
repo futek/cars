@@ -27,7 +27,8 @@ public class CarTest extends Thread {
             
             case 1:
                 // Demonstration of removing and adding back cars.
-            	// 
+            	// Should remove the cars and add them back.
+            	// should not add car 1 back because it should not have completed being interrupted
                 cars.startAll();
                 sleep(2000);
                 cars.removeCar(1);
@@ -49,15 +50,13 @@ public class CarTest extends Thread {
                 cars.removeCar(1);
                 cars.restoreCar(1);
                 sleep(1);
-                cars.restoreCar(1);
-                cars.restoreCar(1);
                 sleep(2000);
                 cars.stopAll();
                 break;
                 
             case 2:
                 // Demonstration of barrier synchronization.
-                // Should let the cars go one round (unless very fast)
+                // Should let the cars go a couple of rounds to check that the barriers functions work.
             	cars.barrierOn();
             	sleep(1);
                 cars.startAll();
@@ -68,21 +67,31 @@ public class CarTest extends Thread {
                 break;
                 
             case 3:
-                // Demonstration of startAll/stopAll.
-                // Should let the cars go one round (unless very fast)
-                cars.startAll();
-                sleep(3000);
-                cars.stopAll();
+                // Demonstration of removal in alley
+                // Should let the car 5 get properly into alley.
+            	cars.setSpeed(1, 30);
+            	cars.setSpeed(5, 50);
+            	cars.setSlow(true);
+            	cars.startCar(1);
+            	sleep(1);
+            	cars.startCar(5);
+            	sleep(1400);
+            	cars.removeCar(1);
+            	cars.stopAll();
+            	sleep(10);
+            	cars.restoreCar(1);
                 break;
             
             case 4:
             	// Demonstration of starvation.
+            	// Fair monitor solution should not have starvation.
             	cars.startAll();
             	cars.setSlow(true);
             	break;
             	
             case 5:
-            	// Demonstration of not removing the first car in line.
+            	// Demonstration of removing the first car in line.
+            	// Lets the cars be removed even though in line.
             	cars.startCar(1);
             	sleep(100);
             	cars.setSlow(true);
@@ -91,10 +100,20 @@ public class CarTest extends Thread {
             	sleep(1500);
             	cars.startAll();
             	sleep(4000);
-            	cars.println("trying to remove car 5");
             	cars.removeCar(5);
             	break;
             	
+            case 6:
+            	// Demonstration of cars allowed access even though fast cars in other direction.
+            	// Doesn't really show anything though.
+            	cars.setSpeed(1, 1);
+            	cars.setSpeed(2, 1);
+            	cars.setSpeed(3, 1);
+            	cars.startCar(1);
+            	cars.startCar(2);
+            	cars.startCar(3);
+            	cars.startCar(5);
+            	break;
 
             case 19:
                 // Demonstration of speed setting.
