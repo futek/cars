@@ -132,6 +132,7 @@ class Car extends Thread {
 
     public void run() {
         boolean inbetweenFields = false;
+        boolean inAlley = false;
 
     	try {
             speed = chooseSpeed();
@@ -152,15 +153,16 @@ class Car extends Thread {
 
                 if (!inAlley(curpos) && inAlley(newpos)) {
                 	alley.enter(no);
+                	inAlley = true;
                 }
 
                 collision.enter(newpos);
 
+                inbetweenFields = true;
+
                 if (infrontOfBarrier(curpos, newpos)) {
                     barrier.sync();
                 }
-
-                inbetweenFields = true;
 
                 //  Move to new position
                 cd.clear(curpos);
@@ -173,6 +175,7 @@ class Car extends Thread {
 
                 if (inAlley(curpos) && !inAlley(newpos)) {
                     alley.leave(no);
+                    inAlley = false;
                 }
 
                 curpos = newpos;
@@ -186,19 +189,14 @@ class Car extends Thread {
                 collision.leave(curpos);
                 collision.leave(newpos);
 
-                if (inAlley(newpos)) {
-                    alley.leave(no);
-                }
-
                 cd.clear(curpos, newpos);
             } else {
                 collision.leave(curpos);
-
-                if (inAlley(curpos)) {
-                    alley.leave(no);
-                }
-
                 cd.clear(curpos);
+            }
+
+            if (inAlley) {
+                alley.leave(no);
             }
 
             cd.println("Car no. " + no + " removed");
